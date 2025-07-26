@@ -1,5 +1,6 @@
-package com.ragdoll.photogalleryapp.presentation.di
 
+package com.ragdoll.photogalleryapp.presentation.di
+/*
 import com.ragdoll.photogalleryapp.domain.repository.PexelsRepository
 import com.ragdoll.photogalleryapp.domain.usecase.FetchPexelsPhotosUseCase
 import com.ragdoll.photogalleryapp.domain.usecase.GetPexelsPhotosUseCase
@@ -22,4 +23,4 @@ class UseCaseModule {
     @Provides
     fun provideGetPhotosUseCase(pexelsRepository: PexelsRepository): GetPexelsPhotosUseCase =
         GetPexelsPhotosUseCase(pexelsRepository)
-}
+}*/

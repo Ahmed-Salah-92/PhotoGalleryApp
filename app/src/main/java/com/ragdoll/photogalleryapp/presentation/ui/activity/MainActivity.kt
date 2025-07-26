@@ -12,14 +12,13 @@ import com.ragdoll.photogalleryapp.databinding.ActivityMainBinding
 import com.ragdoll.photogalleryapp.presentation.adapter.PhotoAdapter
 import com.ragdoll.photogalleryapp.presentation.viewmodel.PhotosViewModel
 import com.ragdoll.photogalleryapp.presentation.viewmodel.PhotosViewModelFactory
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
-@AndroidEntryPoint
+
+//@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    @Inject
+   // @Inject
     lateinit var viewModelFactory: PhotosViewModelFactory
-    @Inject
+   // @Inject
     lateinit var photoAdapter: PhotoAdapter
     lateinit var viewModel: PhotosViewModel
     lateinit var binding: ActivityMainBinding

@@ -1,3 +1,4 @@
+/*
 package com.ragdoll.photogalleryapp.presentation.di
 
 import com.ragdoll.photogalleryapp.data.db.PhotoDAO
@@ -16,4 +17,4 @@ class LocalDataModule {
     @Provides
     fun provideLocalDataSource(photoDoa: PhotoDAO) : PexelsLocalDataSource =
         PexelsLocalDataSourceImpl(photoDoa)
-}
+}*/

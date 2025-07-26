@@ -1,3 +1,4 @@
+/*
 package com.ragdoll.photogalleryapp.presentation.di
 
 import android.content.Context
@@ -12,15 +13,17 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-    /**
+    */
+/**
      * Provides the ConnectivityManager instance for network operations.
      *
      * @param context The application context.
      * @return The ConnectivityManager instance.
-     */
+     *//*
+
     @Provides
     @Singleton
     fun provideConnectivityManager(@ApplicationContext context: Context): ConnectivityManager {
         return context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     }
-}
+}*/

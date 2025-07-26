@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.ragdoll.photogalleryapp.data.model.Photo
 import com.ragdoll.photogalleryapp.databinding.PhotoListItemBinding
 import com.ragdoll.photogalleryapp.presentation.adapter.PhotoAdapter.PhotoVH
@@ -47,12 +46,12 @@ class PhotoAdapter : PagingDataAdapter<Photo, PhotoVH>(DIFF_CALLBACK) {
             try {
                 val colorString: String = photo?.avgColor ?: "#000000" // Default to black if avgColor is null
                 val placeholderColor: Int = colorString.toColorInt()
-                Glide
-                    .with(binding.photoImv.context)
-                    .load(photo?.src?.medium)
-                    .placeholder(placeholderColor.toDrawable())
-                    //.error(R.drawable.ic_broken_image)
-                    .into(binding.photoImv)
+//                Glide
+//                    .with(binding.photoImv.context)
+//                    .load(photo?.src?.medium)
+//                    .placeholder(placeholderColor.toDrawable())
+//                    //.error(R.drawable.ic_broken_image)
+//                    .into(binding.photoImv)
             } catch (e: Exception) {
                 e.message.toString()
             }

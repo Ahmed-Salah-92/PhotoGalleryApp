@@ -1,3 +1,4 @@
+/*
 package com.ragdoll.photogalleryapp.presentation.di
 
 import com.ragdoll.photogalleryapp.data.repository.PexelsRepositoryImpl
@@ -21,4 +22,4 @@ class RepositoryModule {
         pexelsLocalDataSource: PexelsLocalDataSource
     ): PexelsRepository =
         PexelsRepositoryImpl(pexelsRemoteDataSource, pexelsLocalDataSource)
-}
+}*/

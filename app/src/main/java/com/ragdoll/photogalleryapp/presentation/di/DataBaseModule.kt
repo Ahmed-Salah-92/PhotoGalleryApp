@@ -1,3 +1,4 @@
+/*
 package com.ragdoll.photogalleryapp.presentation.di
 
 import android.app.Application
@@ -23,4 +24,4 @@ class DataBaseModule {
     @Provides
     fun providePhotoDao(photoDatabase: PhotoDatabase) =
         photoDatabase.getPhotoDAO()
-}
+}*/

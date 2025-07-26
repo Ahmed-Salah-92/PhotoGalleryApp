@@ -1,3 +1,4 @@
+/*
 package com.ragdoll.photogalleryapp.presentation.di
 
 import android.app.Application
@@ -30,4 +31,4 @@ class FactoryModule {
         connectivityManager,
         repository
     )
-}
+}*/

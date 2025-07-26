@@ -1,3 +1,4 @@
+/*
 package com.ragdoll.photogalleryapp.presentation.di
 
 import com.ragdoll.photogalleryapp.presentation.adapter.PhotoAdapter
@@ -13,4 +14,4 @@ class AdapterModule {
     @Singleton
     @Provides
     fun providePhotoAdapter(): PhotoAdapter = PhotoAdapter()
-}
+}*/

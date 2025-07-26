@@ -1,3 +1,4 @@
+/*
 package com.ragdoll.photogalleryapp.presentation.di
 
 import com.ragdoll.photogalleryapp.data.api.PexelsAPIService
@@ -26,4 +27,4 @@ class NetModule {
     @Provides
     fun providePexelsAPIService(retrofit: Retrofit): PexelsAPIService =
         retrofit.create(PexelsAPIService::class.java)
-}
+}*/

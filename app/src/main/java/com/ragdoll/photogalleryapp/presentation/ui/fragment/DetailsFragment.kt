@@ -8,7 +8,6 @@ import androidx.core.graphics.drawable.toDrawable
 import androidx.core.graphics.toColorInt
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
-import com.bumptech.glide.Glide
 import com.ragdoll.photogalleryapp.R
 import com.ragdoll.photogalleryapp.databinding.FragmentDetailsBinding
 
@@ -30,11 +29,11 @@ class DetailsFragment : Fragment() {
         val args: DetailsFragmentArgs by navArgs()
         val photoDetails = args.selectedPhoto
 
-        Glide
+        /*Glide
             .with(detailsFragmentBinding.imageView.context)
             .load(photoDetails.src.original)
             .placeholder(photoDetails.avgColor.toColorInt().toDrawable())
-            .into(detailsFragmentBinding.imageView)
+            .into(detailsFragmentBinding.imageView)*/
 
         detailsFragmentBinding.apply {
             photoNameTv.text = photoDetails.photographer
