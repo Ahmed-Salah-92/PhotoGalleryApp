@@ -4,10 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.graphics.drawable.toDrawable
-import androidx.core.graphics.toColorInt
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.navArgs
 import com.ragdoll.photogalleryapp.R
 import com.ragdoll.photogalleryapp.databinding.FragmentDetailsBinding
 
@@ -26,8 +23,8 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         detailsFragmentBinding = FragmentDetailsBinding.bind(view)
-        val args: DetailsFragmentArgs by navArgs()
-        val photoDetails = args.selectedPhoto
+       // val args: DetailsFragmentArgs by navArgs()
+        //val photoDetails = args.selectedPhoto
 
         /*Glide
             .with(detailsFragmentBinding.imageView.context)
@@ -35,13 +32,13 @@ class DetailsFragment : Fragment() {
             .placeholder(photoDetails.avgColor.toColorInt().toDrawable())
             .into(detailsFragmentBinding.imageView)*/
 
-        detailsFragmentBinding.apply {
-            photoNameTv.text = photoDetails.photographer
+        /*detailsFragmentBinding.apply {
+          //  photoNameTv.text = photoDetails.photographer
             if (descTv.text.isEmpty())
                 descTv.text = getString(R.string.no_description_available)
             else
-                descTv.text = photoDetails.alt
+            //    descTv.text = photoDetails.alt
 
-        }
+        }*/
     }
 }

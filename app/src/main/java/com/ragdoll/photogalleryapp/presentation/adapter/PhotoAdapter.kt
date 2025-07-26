@@ -1,17 +1,7 @@
 package com.ragdoll.photogalleryapp.presentation.adapter
 
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
-import com.ragdoll.photogalleryapp.data.model.Photo
-import com.ragdoll.photogalleryapp.databinding.PhotoListItemBinding
-import com.ragdoll.photogalleryapp.presentation.adapter.PhotoAdapter.PhotoVH
-import androidx.core.graphics.drawable.toDrawable
-import androidx.core.graphics.toColorInt
-import androidx.paging.PagingDataAdapter
-
 // 7 paging
+/*
 class PhotoAdapter : PagingDataAdapter<Photo, PhotoVH>(DIFF_CALLBACK) {
 
     private var onItemClickListener: ((Photo) -> Unit)? = null
@@ -62,4 +52,4 @@ class PhotoAdapter : PagingDataAdapter<Photo, PhotoVH>(DIFF_CALLBACK) {
             }
         }
     }
-}
+}*/

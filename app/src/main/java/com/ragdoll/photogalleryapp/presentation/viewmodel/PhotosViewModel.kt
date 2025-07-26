@@ -7,33 +7,19 @@ import android.net.NetworkCapabilities
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
-import com.ragdoll.photogalleryapp.R
-import com.ragdoll.photogalleryapp.data.model.APIResponse
-import com.ragdoll.photogalleryapp.data.model.Photo
-import com.ragdoll.photogalleryapp.data.util.Resource
-import com.ragdoll.photogalleryapp.domain.repository.PexelsRepository
-import com.ragdoll.photogalleryapp.domain.usecase.FetchPexelsPhotosUseCase
-import com.ragdoll.photogalleryapp.domain.usecase.GetPexelsPhotosUseCase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
-import retrofit2.HttpException
-import java.io.IOException
+import com.ragdoll.photogalleryapp.domain.repository.PhotoRepository
+import com.ragdoll.photogalleryapp.domain.usecase.GetPhotosUseCase
 
 // 4 paging
 class PhotosViewModel(
     private val app: Application,
-    private val fetchPexelsPhotosUseCase: FetchPexelsPhotosUseCase,
-    private val getPexelsPhotosUseCase: GetPexelsPhotosUseCase,
+   // private val fetchPexelsPhotosUseCase: FetchPexelsPhotosUseCase,
+    private val getPhotosUseCase: GetPhotosUseCase,
     private val connectivityManager: ConnectivityManager,
-    private val repository: PexelsRepository,
+    private val repository: PhotoRepository,
 ) : AndroidViewModel(app) {
 
-    val pagedPhotos: Flow<PagingData<Photo>> = repository.getPagedPhotos()
-        .cachedIn(viewModelScope)
+  //  val pagedPhotos: Flow<PagingData<Photo>> = repository.getPagedPhotos().cachedIn(viewModelScope)
     private val _isNetworkAvailable = MutableLiveData<Boolean>()
     val isNetworkAvailable: LiveData<Boolean> get() = _isNetworkAvailable
 
@@ -59,10 +45,10 @@ class PhotosViewModel(
         return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
     }
 
-    private val _photos = MutableLiveData<Resource<APIResponse>>()
-    val photos: LiveData<Resource<APIResponse>> get() = _photos
+  //  private val _photos = MutableLiveData<Resource<APIResponse>>()
+  //  val photos: LiveData<Resource<APIResponse>> get() = _photos
 
-    fun fetchPhotos(page: Int, perPage: Int) =
+    /*fun fetchPhotos(page: Int, perPage: Int) =
         viewModelScope.launch(Dispatchers.IO) {
             _photos.postValue(Resource.Loading)
             try {
@@ -89,12 +75,11 @@ class PhotosViewModel(
                 }))
             }
 
-        }
+        }*/
 
-    fun getPhotos(): Flow<List<Photo>> = getPexelsPhotosUseCase.execute()
+    //fun getPhotos(): Flow<List<Photo>> = getPhotosUseCase.execute()
 
-    fun refreshPhotos(page: Int = 1, perPage: Int) =
-        fetchPhotos(page, perPage)
+    //fun refreshPhotos(page: Int = 1, perPage: Int) = fetchPhotos(page, perPage)
 
     override fun onCleared() {
         super.onCleared()

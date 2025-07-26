@@ -19,8 +19,8 @@
         android:name="com.ragdoll.photogalleryapp.presentation.ui.fragment.DetailsFragment"
         android:label="fragment_details"
         tools:layout="@layout/fragment_details" >
-        <argument
+        <!--<argument
             android:name="selected_photo"
-            app:argType="com.ragdoll.photogalleryapp.data.model.Photo" />
+            app:argType="com.ragdoll.photogalleryapp.data.model.Photo" />-->
     </fragment>
 </navigation>

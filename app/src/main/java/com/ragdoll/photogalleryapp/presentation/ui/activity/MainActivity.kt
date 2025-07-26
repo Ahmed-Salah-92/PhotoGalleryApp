@@ -6,10 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
 import com.ragdoll.photogalleryapp.R
 import com.ragdoll.photogalleryapp.databinding.ActivityMainBinding
-import com.ragdoll.photogalleryapp.presentation.adapter.PhotoAdapter
 import com.ragdoll.photogalleryapp.presentation.viewmodel.PhotosViewModel
 import com.ragdoll.photogalleryapp.presentation.viewmodel.PhotosViewModelFactory
 
@@ -19,7 +17,7 @@ class MainActivity : AppCompatActivity() {
    // @Inject
     lateinit var viewModelFactory: PhotosViewModelFactory
    // @Inject
-    lateinit var photoAdapter: PhotoAdapter
+    //lateinit var photoAdapter: PhotoAdapter
     lateinit var viewModel: PhotosViewModel
     lateinit var binding: ActivityMainBinding
 
