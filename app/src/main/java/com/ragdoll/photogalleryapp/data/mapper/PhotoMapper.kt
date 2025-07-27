@@ -6,31 +6,31 @@ import com.ragdoll.photogalleryapp.domain.model.Photo
 import com.ragdoll.photogalleryapp.domain.model.PhotoSource
 
 object PhotoMapper {
-    fun mapToDomain(photoResponse: PhotoEntity): Photo {
+    fun mapToDomain(photoEntity: PhotoEntity): Photo {
         return Photo(
-            id = photoResponse.id,
-            photographer = photoResponse.photographer,
-            url = photoResponse.url,
+            id = photoEntity.id,
+            photographer = photoEntity.photographer,
+            url = photoEntity.url,
             src = PhotoSource(
-                original = photoResponse.originalUrl,
-                large = photoResponse.largeUrl,
-                medium = photoResponse.smallUrl,
-                small = photoResponse.smallUrl
+                original = photoEntity.originalUrl,
+                large = photoEntity.largeUrl,
+                medium = photoEntity.mediumUrl,
+                small = photoEntity.smallUrl
             ),
-            alt = photoResponse.altText
+            alt = photoEntity.altText
         )
     }
 
-    fun PhotoResponse.toEntity(): PhotoEntity {
+    fun mapToEntity(photoResponse: PhotoResponse): PhotoEntity {
         return PhotoEntity(
-            id = this.id,
-            photographer = this.photographer,
-            url = url,
-            originalUrl = this.src.original,
-            largeUrl = this.src.large,
-            mediumUrl = this.src.medium,
-            smallUrl = this.src.small,
-            altText = this.alt
+            id = photoResponse.id,
+            photographer = photoResponse.photographer,
+            url = photoResponse.url,
+            originalUrl = photoResponse.src.original,
+            largeUrl = photoResponse.src.large,
+            mediumUrl = photoResponse.src.medium,
+            smallUrl = photoResponse.src.small,
+            altText = photoResponse.alt
         )
     }
 }

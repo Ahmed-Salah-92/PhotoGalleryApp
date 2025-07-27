@@ -12,7 +12,7 @@ plugins {
 }
 
 // Load secrets.properties file
-val secretPropertiesFile = rootProject.file("app/secrets.properties") //
+val secretPropertiesFile = rootProject.file("secrets.properties") // Fixed path to the correct location
 val secretsProperties = Properties()
 if (secretPropertiesFile.exists())
     secretsProperties.load(secretPropertiesFile.inputStream())
@@ -68,6 +68,8 @@ android {
 
     buildFeatures {
         viewBinding = true
+        dataBinding = true
+        buildConfig = true
     }
 
 }
@@ -100,11 +102,13 @@ dependencies {
     implementation("androidx.room:room-ktx:2.7.0")
     ksp("androidx.room:room-compiler:2.7.0")
 
-    // Paging 3
+    // Paging
     implementation("androidx.paging:paging-runtime-ktx:3.3.6")
 
     // Image Loading
     implementation("io.coil-kt:coil:2.7.0")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    kapt("com.github.bumptech.glide:compiler:4.16.0")
 
     // Dependency Injection
     implementation("io.insert-koin:koin-android:4.1.0")

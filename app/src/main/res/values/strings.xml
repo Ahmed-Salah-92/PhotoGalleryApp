@@ -14,4 +14,5 @@
     <string name="network_error">"Network Error: "</string>
     <string name="server_error">"Server Error: "</string>
     <string name="unexpected_error">"Unexpected Error: "</string>
+    <string name="no_photos_available">No Photos Available</string>
 </resources>

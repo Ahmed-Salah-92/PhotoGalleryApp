@@ -1,42 +1,61 @@
 package com.ragdoll.photogalleryapp.presentation.viewmodel
 
-import android.app.Application
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import com.ragdoll.photogalleryapp.domain.repository.PhotoRepository
 import com.ragdoll.photogalleryapp.domain.usecase.GetPhotosUseCase
+import com.ragdoll.photogalleryapp.presentation.common.UIState
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
 // 4 paging
 class PhotosViewModel(
-    private val app: Application,
-   // private val fetchPexelsPhotosUseCase: FetchPexelsPhotosUseCase,
     private val getPhotosUseCase: GetPhotosUseCase,
     private val connectivityManager: ConnectivityManager,
     private val repository: PhotoRepository,
-) : AndroidViewModel(app) {
+) : ViewModel() {
 
-  //  val pagedPhotos: Flow<PagingData<Photo>> = repository.getPagedPhotos().cachedIn(viewModelScope)
-    private val _isNetworkAvailable = MutableLiveData<Boolean>()
-    val isNetworkAvailable: LiveData<Boolean> get() = _isNetworkAvailable
+    val photos = repository.getPhotos().cachedIn(viewModelScope)
+
+
+    private val _uiState = MutableStateFlow<UIState<Boolean>>(UIState.Loading)
+    val uiState: StateFlow<UIState<Boolean>> get() = _uiState
+
+
+    private val _isOnline = MutableStateFlow(checkInitialNetwork())
+    val isOnline: StateFlow<Boolean> = _isOnline.asStateFlow()
 
     private val networkCallback = object : ConnectivityManager.NetworkCallback() {
         override fun onAvailable(network: Network) {
-            _isNetworkAvailable.postValue(true)
+            _isOnline.value = true
         }
 
         override fun onLost(network: Network) {
-            _isNetworkAvailable.postValue(false)
+            _isOnline.value = false
         }
     }
 
     init {
-        // initialize network availability check
-        _isNetworkAvailable.value = checkInitialNetwork()
         connectivityManager.registerDefaultNetworkCallback(networkCallback)
+        viewModelScope.launch {
+            _uiState.value = UIState.Loading
+            try {
+                if(_isOnline.value) {
+                    _uiState.value = UIState.Success(true)
+                } else {
+                    _uiState.value = UIState.Error("No internet connection")
+                }
+
+            } catch (e: Exception) {
+                _uiState.value = UIState.Error(e.message ?: "Unknown error")
+            }
+        }
     }
 
     private fun checkInitialNetwork(): Boolean {
@@ -45,45 +64,8 @@ class PhotosViewModel(
         return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
     }
 
-  //  private val _photos = MutableLiveData<Resource<APIResponse>>()
-  //  val photos: LiveData<Resource<APIResponse>> get() = _photos
-
-    /*fun fetchPhotos(page: Int, perPage: Int) =
-        viewModelScope.launch(Dispatchers.IO) {
-            _photos.postValue(Resource.Loading)
-            try {
-                if (checkInitialNetwork()) {
-                    val apiResponse = fetchPexelsPhotosUseCase.execute(page, perPage)
-                    _photos.postValue(apiResponse)
-                } else {
-                    _photos.postValue(Resource.Error(app.getString(R.string.no_internet_connection)))
-                }
-            } catch (e: IOException) {
-                _photos.postValue(Resource.Error(buildString {
-                    append(app.getString(R.string.network_error))
-                    append(e.message.toString())
-                }))
-            } catch (e: HttpException) {
-                _photos.postValue(Resource.Error(buildString {
-                    append(app.getString(R.string.server_error))
-                    append(e.message.toString())
-                }))
-            } catch (e: Exception) {
-                _photos.postValue(Resource.Error(buildString {
-                    append(app.getString(R.string.unexpected_error))
-                    append(e.message.toString())
-                }))
-            }
-
-        }*/
-
-    //fun getPhotos(): Flow<List<Photo>> = getPhotosUseCase.execute()
-
-    //fun refreshPhotos(page: Int = 1, perPage: Int) = fetchPhotos(page, perPage)
-
     override fun onCleared() {
         super.onCleared()
-        // Unregister the network callback to avoid memory leaks
         connectivityManager.unregisterNetworkCallback(networkCallback)
     }
 }

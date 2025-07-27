@@ -5,20 +5,14 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.ViewModelProvider
 import com.ragdoll.photogalleryapp.R
 import com.ragdoll.photogalleryapp.databinding.ActivityMainBinding
 import com.ragdoll.photogalleryapp.presentation.viewmodel.PhotosViewModel
-import com.ragdoll.photogalleryapp.presentation.viewmodel.PhotosViewModelFactory
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
-//@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-   // @Inject
-    lateinit var viewModelFactory: PhotosViewModelFactory
-   // @Inject
-    //lateinit var photoAdapter: PhotoAdapter
-    lateinit var viewModel: PhotosViewModel
+    // Use Koin's viewModel delegate to inject the ViewModel
+    val viewModel: PhotosViewModel by viewModel()
     lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,13 +22,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val innerPadding = insets.getInsets(WindowInsetsCompat.Type.displayCutout())
-            v.setPadding(innerPadding.left, innerPadding.top, innerPadding.right, innerPadding.bottom)
+            v.setPadding(
+                innerPadding.left,
+                innerPadding.top,
+                innerPadding.right,
+                innerPadding.bottom
+            )
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
-        viewModel = ViewModelProvider(this, viewModelFactory)[PhotosViewModel::class.java]
 
         setupNavigation()
     }
