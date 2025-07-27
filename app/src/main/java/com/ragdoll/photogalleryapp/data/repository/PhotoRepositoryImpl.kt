@@ -25,11 +25,11 @@ class PhotoRepositoryImpl(
 ) : PhotoRepository {
     
     private val TAG = "PhotoRepository"
-
+    
     // Expose network state from the repository
     override val networkState: Flow<Boolean> = networkMonitor.isOnline
         .onEach { isOnline -> Log.d(TAG, "Network state changed: isOnline = $isOnline") }
-
+    
     @OptIn(ExperimentalPagingApi::class)
     override fun getPhotos(): Flow<PagingData<Photo>> {
         Log.d(TAG, "getPhotos: Creating paging flow")
@@ -44,9 +44,9 @@ class PhotoRepositoryImpl(
                 initialLoadSize = NETWORK_PAGE_SIZE * 2
             ),
             remoteMediator = remoteMediator,
-            pagingSourceFactory = {
+            pagingSourceFactory = { 
                 Log.d(TAG, "Creating paging source from database")
-                db.photoDao().getPagingSource()
+                db.photoDao().getPagingSource() 
             }
         ).flow.map { pagingData ->
             Log.d(TAG, "Received paging data, mapping to domain models")

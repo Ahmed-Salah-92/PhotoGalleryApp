@@ -98,6 +98,13 @@ class PhotoRemoteMediator(
                         return MediatorResult.Success(endOfPaginationReached = true)
                     }
 
+                    // Check if we've already loaded this page to prevent duplicate loads
+                    val lastLoadedPage = remoteKeys.currentPage
+                    if (nextPage == lastLoadedPage) {
+                        Log.d(TAG, "load: APPEND skipping duplicate load of page $nextPage")
+                        return MediatorResult.Success(endOfPaginationReached = false)
+                    }
+
                     Log.d(TAG, "load: APPEND, loading page $nextPage")
                     nextPage
                 }
