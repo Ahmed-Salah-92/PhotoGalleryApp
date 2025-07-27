@@ -69,22 +69,46 @@ class HomeFragment : Fragment() {
                     when (loadStates.refresh) {
                         is LoadState.Loading -> {
                             binding.loadingProgressIndicator.visibility = View.VISIBLE
+                            binding.errorLayout.visibility = View.GONE
                         }
                         is LoadState.Error -> {
                             val error = (loadStates.refresh as LoadState.Error).error
                             Log.e(TAG, "observeLoadStates: Error loading data", error)
                             binding.loadingProgressIndicator.visibility = View.GONE
 
+                            // Show appropriate error message based on error type
                             if (!viewModel.isOnline.value) {
-                                binding.noPhotosTv.apply {
-                                    text = getString(R.string.no_internet_connection)
-                                    visibility = View.VISIBLE
+                                showErrorView(
+                                    getString(R.string.no_internet_connection),
+                                    getString(R.string.check_connection_and_try_again)
+                                )
+                            } else {
+                                when (error) {
+                                    is java.net.SocketTimeoutException -> {
+                                        showErrorView(
+                                            getString(R.string.connection_timeout),
+                                            getString(R.string.server_taking_too_long)
+                                        )
+                                    }
+                                    is java.io.IOException -> {
+                                        showErrorView(
+                                            getString(R.string.network_error),
+                                            getString(R.string.could_not_connect_to_server)
+                                        )
+                                    }
+                                    else -> {
+                                        showErrorView(
+                                            getString(R.string.unknown_error),
+                                            error.message ?: getString(R.string.something_went_wrong)
+                                        )
+                                    }
                                 }
-                                binding.photosRV.visibility = View.GONE
                             }
                         }
                         is LoadState.NotLoading -> {
                             binding.loadingProgressIndicator.visibility = View.GONE
+                            binding.errorLayout.visibility = View.GONE
+
                             if (photoAdapter.itemCount == 0) {
                                 binding.noPhotosTv.apply {
                                     text = getString(R.string.no_photos_available)
@@ -97,6 +121,20 @@ class HomeFragment : Fragment() {
                         }
                     }
                 }
+        }
+    }
+
+    private fun showErrorView(title: String, message: String) {
+        binding.apply {
+            errorTitle.text = title
+            errorMessage.text = message
+            errorLayout.visibility = View.VISIBLE
+            photosRV.visibility = if (photoAdapter.itemCount == 0) View.GONE else View.VISIBLE
+            retryButton.setOnClickListener {
+                errorLayout.visibility = View.GONE
+                loadingProgressIndicator.visibility = View.VISIBLE
+                photoAdapter.refresh()
+            }
         }
     }
 
